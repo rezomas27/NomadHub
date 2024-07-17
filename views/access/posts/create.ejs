@@ -1,0 +1,64 @@
+<html lang="en">
+<%- include("../partials/head.ejs") %>
+
+<body>
+  <%- include("../partials/nav.ejs") %>
+
+  <title>Create Blog Post| <%= title%></title>
+  <style>
+
+    .container {
+      width: 80%;
+      margin: auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    form {
+      margin-bottom: 20px;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+    input[type="text"],
+    textarea {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    input[type="submit"] {
+      padding: 10px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Create Blog Post</h1>
+    <form action="/posts" method="POST">
+      <label for="title">Title:</label>
+      <input type="text" id="title" name="title" required>
+      
+      <label for="body">Content:</label>
+      <textarea id="body" name="body" rows="8" required></textarea>
+      
+      <label for="type">Type</label>
+      <input type="text" id="type" name="type" required>
+      <label for="type">Place</label>
+      <input type="text" id="place" name="place" required>
+
+      
+      <button>Submit</button>
+    </form>
+  </div>
+</body>
+</html>

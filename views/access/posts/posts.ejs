@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include("../partials/head.ejs") %>
+  <%- include("../partials/nav.ejs") %>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+
+
+  <div class="container">
+    <section id="recent-posts">
+      <h2>Recent Posts</h2>
+      <% if(posts.length > 0){%>
+        <% posts.forEach(post=> { %>
+          <a class="single" href="/posts/<%=post._id%>">
+            <h3 class="title"><%=post.title%></h3>
+            <p class="type"><%=post.type%></p>
+            <p class="body"><%=post.body%></p>
+            <p class="poster-name">Posted by: <%= post.user.firstName %> <%= post.user.lastName%>
+          </a>
+        <%})%>
+      <%}else{%>
+        <p>There are no posts.</p>
+      <%}%>
+    </section>
+  </div>
+
+  
+</body>
+</html>

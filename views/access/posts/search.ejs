@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include("../partials/head.ejs") %>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <%- include("../partials/nav.ejs") %>
+
+  <form action="/posts/search" method="POST">
+    <input type="text" id="search-bar" name="query" placeholder="Search for a location" value="<%= query || '' %>">
+    <input type="submit" value="Search">
+  </form>
+
+  <div id="map"></div>
+
+  <% if (places && places.length > 0) { %>
+    <h2>Search Results</h2>
+    <ul>
+      <% places.forEach(place => { %>
+        <li><%= place.name %></li>
+      <% }); %>
+    </ul>
+  <% } else if (query) { %>
+    <p>No results found for "<%= query %>"</p>
+  <% } %>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+  <script>
+    async function initMap() {
+      try {
+        const { PlaceAutocomplete } = await google.maps.importLibrary("places");
+        
+        const searchBar = document.getElementById("search-bar");
+        const autocomplete = new google.maps.places.PlaceAutocomplete(searchBar);
+
+        autocomplete.addListener("place_changed", () => {
+          const place = autocomplete.getPlace();
+          if (!place.geometry || !place.geometry.location) {
+            console.log("No location found for this place");
+            return;
+          }
+          // Update map and display place information
+          updateMap(place);
+        });
+      } catch (error) {
+        console.error("Error loading Google Maps API:", error);
+      }
+    }
+
+    window.onload = initMap;
+  </script>
+  <script type="module" src="/map.js"></script>
+</body>
+</html>
